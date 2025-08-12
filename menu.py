@@ -4,6 +4,7 @@
 def mostrar_menu():
     """
     Imprime las opciones disponibles del menú principal en la consola.
+    Luego pide al usuario que ingrese su elección y la retorna como una cadena de texto.
     """
     print("\n" + "🔹🔸"*25)
     print("\n💻 GESTOR DE TAREAS:"+"\n")
@@ -16,8 +17,4 @@ def mostrar_menu():
 
 def obtener_opcion():
 
-    """
-    Pide al usuario que ingrese su elección y la retorna como una cadena de texto.
-    """
     return input("📌 Elige una opción: ").strip()
-

@@ -1,22 +1,21 @@
 # main.py
 # archivo principal de la aplicación "Gestor de Tareas"
 
-# Importamos los módulos que contienen nuestras funciones
-import datos    # Para cargar y guardar las tareas
-import tareas   # Para agregar, listar, marcar y eliminar tareas
-import menu     # Para mostrar el menú y obtener la opción del usuario
+import datos    # Para cargar y guardar las tareas...
+import tareas   # Para agregar, listar, marcar y eliminar tareas...
+import menu     # Para mostrar el menú y obtener la opción del usuario...
 
-# Nombre del archivo donde se guardarán las tareas
+# Nombre del archivo donde se guardarán las tareas...
 NOMBRE_ARCHIVO_TAREAS = "tareas.json"
 
 def bucle_principal():
-    # Al iniciar el programa, intentamos cargar las tareas existentes desde el archivo
+    # Al iniciar el programa, intentamos cargar las tareas existentes desde el archivo...
     lista_tareas = datos.cargar_tareas(NOMBRE_ARCHIVO_TAREAS)
 
-    # Bucle infinito
+    # Bucle infinito.
     while True:
-        menu.mostrar_menu()  # Muestra las opciones del menú
-        opcion = menu.obtener_opcion()  # Obtiene la opción ingresada
+        menu.mostrar_menu()  # Muestra las opciones del menú...
+        opcion = menu.obtener_opcion()  # Obtiene la opción ingresada...
 
         # Estructura condicional
         if opcion == '1':
@@ -33,7 +32,7 @@ def bucle_principal():
         else:
             print("⚠️  Opción no válida. Por favor, elige un número del 1️⃣  al 5️⃣  ...")
 
-        # Pausa la ejecución y espera a que se presione Enter
+        # Pausa la ejecución y espera a que se presione Enter...
         input("\n⏎ Presiona Enter para continuar...")
 
 if __name__ == "__main__":

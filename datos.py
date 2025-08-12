@@ -1,47 +1,36 @@
 # datos.py
-# Este módulo se encarga de la lectura y escritura de datos (tareas) desde y hacia un archivo.
+# Módulo para leer y escribir tareas desde/hacia un archivo JSON.
 
 import json
-import os
+from pathlib import Path
 
 def cargar_tareas(nombre_archivo):
     """
     Carga la lista de tareas desde un archivo JSON.
-
-    Args:
-        nombre_archivo (str): La ruta y nombre del archivo JSON a cargar.
-
-    Returns:
-        list: Una lista de diccionarios que representan las tareas.
     """
-    if not os.path.exists(nombre_archivo):
-        print(f"INFO: No se encontró el archivo '{nombre_archivo}'. Se creará uno nuevo.")
+    archivo = Path(nombre_archivo)
+    if not archivo.exists():
+        print(f"ℹ️ INFO: No se encontró '{nombre_archivo}'. Se creará uno nuevo.")
         return []
 
     try:
-        with open(nombre_archivo, "r", encoding="utf-8") as f:
-            contenido = f.read()
-            if not contenido:
-                print(f"Advertencia: El archivo '{nombre_archivo}' está vacío. Se iniciará con una lista vacía.")
-                return []
-            return json.loads(contenido)
+        tareas = json.loads(archivo.read_text(encoding="utf-8") or "[]")
     except json.JSONDecodeError:
-        print(f"Advertencia: El archivo '{nombre_archivo}' está corrupto. Se iniciará con una lista vacía.")
+        print(f"⚠️ Advertencia: El archivo '{nombre_archivo}' está corrupto. Se iniciará con una lista vacía.")
         return []
     except Exception as e:
-        print(f"Error al cargar tareas: {e}")
+        print(f"⚠️  Error al cargar tareas: {e}")
         return []
+
+    return tareas
 
 def guardar_tareas(nombre_archivo, tareas_a_guardar):
     """
-    Guarda la lista actual de tareas en un archivo JSON.
-
-    Args:
-        nombre_archivo (str): La ruta y nombre del archivo JSON donde guardar las tareas.
-        tareas_a_guardar (list): La lista de diccionarios de tareas a guardar.
+    Guarda la lista de tareas en un archivo JSON.
     """
     try:
-        with open(nombre_archivo, "w", encoding="utf-8") as f:
-            json.dump(tareas_a_guardar, f, indent=4)
+        Path(nombre_archivo).write_text(
+            json.dumps(tareas_a_guardar, indent=4, ensure_ascii=False), encoding="utf-8"
+        )
     except Exception as e:
-        print(f"Error al guardar tareas: {e}")
+        print(f"⚠️  Error al guardar tareas: {e}")
